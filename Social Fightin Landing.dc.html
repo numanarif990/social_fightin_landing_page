@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="./image-slot.js"></script>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:#07051A;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  ::selection{background:rgba(226,75,74,.4);color:#fff}
+  iconify-icon{display:inline-block;line-height:1}
+  @keyframes sfFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-16px)}}
+  @keyframes sfFloatB{0%,100%{transform:translateY(0)}50%{transform:translateY(13px)}}
+  @keyframes sfPulse{0%,100%{opacity:.45;transform:scale(1)}50%{opacity:.8;transform:scale(1.05)}}
+  @keyframes sfHero{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes sfDot{0%,100%{box-shadow:0 0 0 0 rgba(226,75,74,.6)}50%{box-shadow:0 0 0 5px rgba(226,75,74,0)}}
+  @keyframes sfBeam{0%,100%{opacity:.5}50%{opacity:.9}}
+  @keyframes sfFlash{0%,100%{opacity:0}45%{opacity:0}50%{opacity:.9}55%{opacity:0}}
+  @keyframes sfMarquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  .sf-hero-anim{animation:sfHero 1s cubic-bezier(.22,1,.36,1) both}
+  .reveal{opacity:0;transform:translateY(40px);transition:opacity 1s cubic-bezier(.22,1,.36,1),transform 1s cubic-bezier(.22,1,.36,1)}
+  .reveal.is-visible{opacity:1;transform:none}
+  .reveal-s{opacity:0;transform:translateY(22px) scale(.97);transition:opacity .9s cubic-bezier(.22,1,.36,1),transform .9s cubic-bezier(.22,1,.36,1)}
+  .reveal-s.is-visible{opacity:1;transform:none}
+  .reveal-l{opacity:0;transform:translateX(-44px);transition:opacity 1.05s cubic-bezier(.22,1,.36,1),transform 1.05s cubic-bezier(.22,1,.36,1)}
+  .reveal-l.is-visible{opacity:1;transform:none}
+  .reveal-r{opacity:0;transform:translateX(44px);transition:opacity 1.05s cubic-bezier(.22,1,.36,1),transform 1.05s cubic-bezier(.22,1,.36,1)}
+  .reveal-r.is-visible{opacity:1;transform:none}
+  .sf-link{position:relative}
+  .sf-link::after{content:"";position:absolute;left:0;bottom:-5px;height:1.5px;width:0;background:#E24B4A;transition:width .35s ease}
+  .sf-link:hover::after{width:100%}
+  .sf-card{transition:transform .4s cubic-bezier(.22,1,.36,1),border-color .35s,box-shadow .4s}
+  .sf-card:hover{border-color:rgba(226,75,74,.55)!important;transform:translateY(-8px)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 30px 70px rgba(226,75,74,.2),0 12px 30px rgba(0,0,0,.45)!important}
+  .sf-card:hover .sf-ico{border-color:rgba(226,75,74,.45);color:#ff6b6a;background:rgba(226,75,74,.14)}
+  .sf-store{transition:transform .2s,border-color .25s}
+  .sf-store:hover{transform:translateY(-3px);border-color:rgba(255,255,255,.3)}
+  .sf-btn-press{transition:transform .15s,box-shadow .25s}
+  .sf-btn-press:active{transform:scale(.97)}
+  .sf-chap{cursor:pointer;transition:color .3s}
+  .sf-chap .sf-chap-dot{transition:all .35s}
+  .sf-chap.active{color:#fff}
+  .sf-chap.active .sf-chap-dot{background:#E24B4A;box-shadow:0 0 0 4px rgba(226,75,74,.18);transform:scale(1.15)}
+  .sf-chap.active .sf-chap-line{background:#E24B4A!important}
+  .sf-marquee-track{display:flex;width:max-content;animation:sfMarquee 38s linear infinite}
+  .sf-mq-pause:hover .sf-marquee-track{animation-play-state:paused}
+  @media(max-width:1200px){.sf-rail{display:none!important}}
+  @media(max-width:980px){
+    .sf-navlinks{display:none!important}
+    .sf-hero-grid{grid-template-columns:1fr!important;text-align:center}
+    .sf-hero-cta,.sf-badge-wrap,.sf-hero-meta{justify-content:center!important}
+    .sf-float{display:none!important}
+    .sf-split{grid-template-columns:1fr!important}
+    .sf-split-rev .sf-split-media{order:-1}
+    .sf-stats{grid-template-columns:repeat(2,1fr)!important}
+    .sf-roles,.sf-features3{grid-template-columns:1fr!important}
+    .sf-verify-grid{grid-template-columns:1fr!important}
+    .sf-tline::before{display:none!important}
+    .sf-h1{font-size:16vw!important}
+    .sf-bgtype{font-size:30vw!important}
+    .sf-foot{flex-direction:column!important;gap:26px!important;text-align:center}
+  }
+  @media(max-width:560px){
+    .sf-store-wrap{flex-direction:column!important}
+    .sf-stats{grid-template-columns:1fr!important}
+    .sf-logos{gap:26px 32px!important}
+  }
+</style>
+</helmet>
+
+<template id="__bundler_thumbnail" data-bg-color="#07051A">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#07051A"/>
+    <circle cx="600" cy="360" r="240" fill="#E24B4A" opacity="0.22"/>
+    <text x="600" y="360" font-family="Arial,sans-serif" font-weight="900" font-size="220" fill="#ffffff" text-anchor="middle" dominant-baseline="middle">SF</text>
+    <text x="600" y="560" font-family="Arial,sans-serif" font-weight="700" font-size="58" letter-spacing="6" fill="#ffffff" text-anchor="middle" dominant-baseline="middle">SOCIAL FIGHTIN</text>
+  </svg>
+</template>
+
+<div id="sf-root" style="font-family:'Inter',sans-serif;background:radial-gradient(1300px 760px at 50% -6%,#171034 0%,#0b0724 44%,#07051A 100%);color:#fff;min-height:100vh;overflow-x:hidden;position:relative">
+
+  <div style="position:fixed;inset:0;pointer-events:none;z-index:1;background:radial-gradient(125% 85% at 50% 0%,transparent 52%,rgba(0,0,0,.5) 100%)"></div>
+
+  <!-- ===== SCROLL-STORY CHAPTER RAIL ===== -->
+  <sc-if value="{{ showRail }}" hint-placeholder-val="{{ true }}">
+  <div class="sf-rail" style="position:fixed;left:30px;top:50%;transform:translateY(-50%);z-index:45;display:flex;flex-direction:column;gap:2px">
+    <a href="#top" data-chap="hero" class="sf-chap active" style="display:flex;align-items:center;gap:13px;text-decoration:none;color:rgba(255,255,255,.4);font-size:12px;font-weight:700;letter-spacing:2px;padding:7px 0">
+      <span style="display:flex;flex-direction:column;align-items:center"><span class="sf-chap-dot" style="width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.3)"></span><span class="sf-chap-line" style="width:1.5px;height:26px;background:rgba(255,255,255,.12);margin-top:2px"></span></span>
+      <span style="display:flex;gap:8px"><span style="opacity:.55">01</span>FIGHT</span>
+    </a>
+    <a href="#roles" data-chap="roles" class="sf-chap" style="display:flex;align-items:center;gap:13px;text-decoration:none;color:rgba(255,255,255,.4);font-size:12px;font-weight:700;letter-spacing:2px;padding:7px 0">
+      <span style="display:flex;flex-direction:column;align-items:center"><span class="sf-chap-dot" style="width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.3)"></span><span class="sf-chap-line" style="width:1.5px;height:26px;background:rgba(255,255,255,.12);margin-top:2px"></span></span>
+      <span style="display:flex;gap:8px"><span style="opacity:.55">02</span>CONNECT</span>
+    </a>
+    <a href="#features" data-chap="features" class="sf-chap" style="display:flex;align-items:center;gap:13px;text-decoration:none;color:rgba(255,255,255,.4);font-size:12px;font-weight:700;letter-spacing:2px;padding:7px 0">
+      <span style="display:flex;flex-direction:column;align-items:center"><span class="sf-chap-dot" style="width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.3)"></span><span class="sf-chap-line" style="width:1.5px;height:26px;background:rgba(255,255,255,.12);margin-top:2px"></span></span>
+      <span style="display:flex;gap:8px"><span style="opacity:.55">03</span>COMPETE</span>
+    </a>
+    <a href="#verify" data-chap="verify" class="sf-chap" style="display:flex;align-items:center;gap:13px;text-decoration:none;color:rgba(255,255,255,.4);font-size:12px;font-weight:700;letter-spacing:2px;padding:7px 0">
+      <span style="display:flex;flex-direction:column;align-items:center"><span class="sf-chap-dot" style="width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.3)"></span><span class="sf-chap-line" style="width:1.5px;height:26px;background:rgba(255,255,255,.12);margin-top:2px"></span></span>
+      <span style="display:flex;gap:8px"><span style="opacity:.55">04</span>GROW</span>
+    </a>
+    <a href="#download" data-chap="download" class="sf-chap" style="display:flex;align-items:center;gap:13px;text-decoration:none;color:rgba(255,255,255,.4);font-size:12px;font-weight:700;letter-spacing:2px;padding:7px 0">
+      <span style="display:flex;flex-direction:column;align-items:center"><span class="sf-chap-dot" style="width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.3)"></span></span>
+      <span style="display:flex;gap:8px"><span style="opacity:.55">05</span>WIN</span>
+    </a>
+  </div>
+  </sc-if>
+
+  <!-- ===== FLOATING GLASS NAV ===== -->
+  <div style="position:sticky;top:18px;z-index:50;padding:0 20px">
+    <nav style="max-width:1180px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:11px 14px 11px 18px;border-radius:60px;background:rgba(18,14,42,.55);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.09);box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 16px 40px rgba(0,0,0,.45)">
+      <a href="#top" style="display:flex;align-items:center;gap:11px;text-decoration:none">
+        <img src="assets/sf-logo.png" alt="Social Fightin" style="width:38px;height:38px;border-radius:11px;display:block;box-shadow:0 4px 14px rgba(0,0,0,.5)">
+        <span style="font-family:'Bebas Neue';font-size:23px;letter-spacing:1.5px;color:#fff">SOCIAL FIGHTIN</span>
+      </a>
+      <div class="sf-navlinks" style="display:flex;gap:34px;align-items:center;position:absolute;left:50%;transform:translateX(-50%)">
+        <a href="#roles" class="sf-link" style="color:rgba(255,255,255,.66);text-decoration:none;font-size:14.5px;font-weight:500" style-hover="color:#fff">Roles</a>
+        <a href="#features" class="sf-link" style="color:rgba(255,255,255,.66);text-decoration:none;font-size:14.5px;font-weight:500" style-hover="color:#fff">Features</a>
+        <a href="#verify" class="sf-link" style="color:rgba(255,255,255,.66);text-decoration:none;font-size:14.5px;font-weight:500" style-hover="color:#fff">Verification</a>
+        <a href="#download" class="sf-link" style="color:rgba(255,255,255,.66);text-decoration:none;font-size:14.5px;font-weight:500" style-hover="color:#fff">Download</a>
+      </div>
+      <a href="#download" class="sf-btn-press" style="text-decoration:none;background:linear-gradient(180deg,#ef5d5c,#d33f3e);color:#fff;font-weight:600;font-size:14.5px;padding:12px 24px;border-radius:60px;box-shadow:inset 0 1px 0 rgba(255,255,255,.3),0 8px 22px rgba(226,75,74,.4)" style-hover="box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 12px 32px rgba(226,75,74,.6)">Download App</a>
+    </nav>
+  </div>
+
+  <!-- ===== HERO — THE ARENA ===== -->
+  <header id="top" data-chap-sec="hero" style="position:relative;z-index:10;max-width:1280px;margin:0 auto;padding:70px 32px 40px">
+    <sc-if value="{{ showAtmosphere }}" hint-placeholder-val="{{ true }}">
+    <!-- arena spotlight beams -->
+    <div data-tilt="-10" style="position:absolute;top:-120px;left:8%;width:360px;height:820px;background:linear-gradient(177deg,rgba(226,75,74,.22),transparent 62%);filter:blur(26px);transform:rotate(-15deg);mix-blend-mode:screen;pointer-events:none;z-index:0;animation:sfBeam 7s ease-in-out infinite"></div>
+    <div data-tilt="10" style="position:absolute;top:-140px;right:8%;width:360px;height:820px;background:linear-gradient(183deg,rgba(120,72,255,.2),transparent 62%);filter:blur(26px);transform:rotate(15deg);mix-blend-mode:screen;pointer-events:none;z-index:0;animation:sfBeam 8.5s ease-in-out infinite"></div>
+    <div style="position:absolute;top:-90px;left:50%;margin-left:-300px;width:600px;height:520px;background:radial-gradient(ellipse 50% 50% at 50% 30%,rgba(226,75,74,.26),transparent 62%);filter:blur(30px);pointer-events:none;z-index:0"></div>
+    </sc-if>
+    <!-- massive background type -->
+    <div class="sf-bgtype" data-parallax="0.1" style="position:absolute;top:120px;left:50%;transform:translateX(-50%);font-family:'Bebas Neue';font-size:20vw;line-height:.8;letter-spacing:.4vw;color:rgba(255,255,255,.035);white-space:nowrap;pointer-events:none;z-index:0;user-select:none">FIGHTIN</div>
+
+    <div class="sf-hero-grid" style="position:relative;z-index:5;display:grid;grid-template-columns:1.02fr .98fr;gap:48px;align-items:center;min-height:620px">
+      <!-- copy -->
+      <div class="sf-hero-anim">
+        <div class="sf-badge-wrap" style="display:flex;margin-bottom:28px">
+          <span style="display:inline-flex;align-items:center;gap:10px;padding:8px 16px 8px 12px;border-radius:60px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);box-shadow:inset 0 1px 0 rgba(255,255,255,.08);font-size:12.5px;font-weight:600;letter-spacing:1px;color:rgba(255,255,255,.85)">
+            <span style="width:7px;height:7px;border-radius:50%;background:#E24B4A;animation:sfDot 2s ease-in-out infinite"></span>
+            THE BOXING WORLD IS ALREADY HERE
+          </span>
+        </div>
+        <h1 class="sf-h1" style="font-family:'Bebas Neue';font-size:104px;line-height:.88;letter-spacing:.5px;margin-bottom:26px">
+          WHERE THE<br>BOXING WORLD<br>
+          <span style="background:linear-gradient(110deg,#ff7c7b,#E24B4A 55%,#a8302f);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">CONNECTS</span>
+        </h1>
+        <p style="font-size:18.5px;line-height:1.65;color:rgba(255,255,255,.6);max-width:480px;margin-bottom:36px">
+          The professional network built exclusively for boxing. Connect fighters, managers, promoters, and fans on one verified platform.
+        </p>
+        <div class="sf-hero-cta" style="display:flex;gap:15px;flex-wrap:wrap;align-items:center;margin-bottom:30px">
+          <a href="#download" class="sf-btn-press" style="text-decoration:none;background:linear-gradient(180deg,#ef5d5c,#d33f3e);color:#fff;font-weight:600;font-size:16px;padding:17px 36px;border-radius:60px;box-shadow:inset 0 1px 0 rgba(255,255,255,.3),0 14px 40px rgba(226,75,74,.45)" style-hover="box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 18px 50px rgba(226,75,74,.65)">Step Into the Ring</a>
+          <a href="#features" style="text-decoration:none;display:inline-flex;align-items:center;gap:9px;background:rgba(255,255,255,.04);color:#fff;font-weight:600;font-size:16px;padding:17px 28px;border-radius:60px;border:1px solid rgba(255,255,255,.14);box-shadow:inset 0 1px 0 rgba(255,255,255,.06)" style-hover="background:rgba(255,255,255,.09);border-color:rgba(255,255,255,.28)">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" style="font-size:20px;color:#ff6b6a;display:inline-block;vertical-align:-0.125em"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.7"/><path fill="currentColor" d="M10.4 8.3 15.7 12l-5.3 3.7z"/></svg> See the Platform
+          </a>
+        </div>
+        <div class="sf-hero-meta" style="display:flex;align-items:center;gap:18px">
+          <div style="display:flex">
+            <span style="width:34px;height:34px;border-radius:50%;border:2px solid #0b0724;background:linear-gradient(135deg,#E24B4A,#7c4dff)"></span>
+            <span style="width:34px;height:34px;border-radius:50%;border:2px solid #0b0724;background:linear-gradient(135deg,#7c4dff,#60c7ff);margin-left:-12px"></span>
+            <span style="width:34px;height:34px;border-radius:50%;border:2px solid #0b0724;background:linear-gradient(135deg,#ffa200,#E24B4A);margin-left:-12px"></span>
+            <span style="display:grid;place-items:center;width:34px;height:34px;border-radius:50%;border:2px solid #0b0724;background:#1a1438;margin-left:-12px;font-size:10px;font-weight:700;color:#fff">+9</span>
+          </div>
+          <div style="font-size:13.5px;color:rgba(255,255,255,.55);line-height:1.4">Join <strong style="color:#fff">67,000+</strong> members<br>building the future of boxing.</div>
+        </div>
+      </div>
+
+      <!-- product + floating layers -->
+      <div data-tilt="12" style="position:relative;display:flex;justify-content:center;align-items:center;min-height:640px;perspective:1500px">
+        <div style="position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(226,75,74,.36),transparent 62%);filter:blur(44px);animation:sfPulse 6s ease-in-out infinite"></div>
+
+        <!-- floating LIVE activity card -->
+        <div class="sf-float" style="position:absolute;left:-40px;top:48px;z-index:7;animation:sfFloat 6.5s ease-in-out infinite">
+          <div style="width:230px;background:rgba(20,16,44,.66);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:14px 16px;box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 24px 50px rgba(0,0,0,.55)">
+            <div style="display:flex;align-items:center;gap:7px;margin-bottom:12px">
+              <span style="width:7px;height:7px;border-radius:50%;background:#37d67a;animation:sfDot 1.8s ease-in-out infinite"></span>
+              <span style="font-size:10.5px;font-weight:700;letter-spacing:1.5px;color:rgba(255,255,255,.6)">LIVE NOW</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:11px">
+              <span style="display:grid;place-items:center;width:34px;height:34px;border-radius:11px;background:rgba(226,75,74,.16);color:#ff6b6a"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" style="font-size:18px;display:inline-block;vertical-align:-0.125em"><path fill="currentColor" d="M16 6.5A4.5 4.5 0 0 1 20.5 11v1A2.5 2.5 0 0 1 18 14.5h-1.15A4 4 0 0 1 13 17.85V18H7.2A2.2 2.2 0 0 1 5 15.8v-3.4A3 3 0 0 1 4.2 7.7 4.5 4.5 0 0 1 8.5 6.5z"/><path fill="currentColor" d="M7.2 19h5.8v.3A2.2 2.2 0 0 1 10.8 21.5H9.4A2.2 2.2 0 0 1 7.2 19.3z"/></svg></span>
+              <div style="font-size:12px;line-height:1.35;color:rgba(255,255,255,.82)"><strong style="color:#fff">Marcus Reyes</strong> challenged <strong style="color:#fff">Daniel Cruz</strong></div>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px">
+              <span style="display:grid;place-items:center;width:34px;height:34px;border-radius:11px;background:rgba(96,199,255,.16);color:#60c7ff"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" style="font-size:18px;display:inline-block;vertical-align:-0.125em"><path fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" d="M5 12.5 9.8 17.3 19 7.2"/></svg></span>
+              <div style="font-size:12px;line-height:1.35;color:rgba(255,255,255,.82)"><strong style="color:#fff">5 fighters</strong> verified in the last hour</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- floating stat — bouts -->
+        <div class="sf-float" style="position:absolute;right:-38px;bottom:96px;z-index:7;animation:sfFloatB 7.5s ease-in-out infinite">
+          <div style="background:rgba(20,16,44,.66);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:14px 18px;box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 24px 50px rgba(0,0,0,.55)">
+            <div style="display:flex;align-items:center;gap:12px">
+              <span style="display:grid;place-items:center;width:42px;height:42px;border-radius:12px;background:rgba(120,72,255,.2);color:#b9a3ff"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" style="font-size:22px;display:inline-block;vertical-align:-0.125em"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9.2 14.8 14.8 9.2"/><path d="M8.4 12.6 7 14a3 3 0 0 0 4.2 4.2l1.5-1.5"/><path d="M15.6 11.4 17 10a3 3 0 0 0-4.2-4.2l-1.5 1.5"/></g></svg></span>
+              <div>
+                <div style="font-family:'Bebas Neue';font-size:27px;line-height:1;color:#fff">240</div>
+                <div style="font-size:11px;color:rgba(255,255,255,.55);font-weight:500">Bouts Matched</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- floating rating chip -->
+        <div class="sf-float" style="position:absolute;right:6px;top:30px;z-index:7;animation:sfFloat 9s ease-in-out infinite">
+          <div style="display:flex;align-items:center;gap:8px;background:rgba(20,16,44,.66);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.12);border-radius:60px;padding:9px 15px;box-shadow:0 18px 40px rgba(0,0,0,.5)">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" style="font-size:16px;color:#ffa200;display:inline-block;vertical-align:-0.125em"><path fill="currentColor" d="M9.153 5.408C10.42 3.136 11.053 2 12 2s1.58 1.136 2.847 3.408l.328.588c.36.646.54.969.82 1.182s.63.292 1.33.45l.636.144c2.46.557 3.689.835 3.982 1.776c.292.94-.546 1.921-2.223 3.882l-.434.507c-.476.557-.715.836-.822 1.18c-.107.345-.071.717.001 1.46l.066.677c.253 2.617.38 3.925-.386 4.506s-1.918.051-4.22-1.009l-.597-.274c-.654-.302-.981-.452-1.328-.452s-.674.15-1.328.452l-.596.274c-2.303 1.06-3.455 1.59-4.22 1.01c-.767-.582-.64-1.89-.387-4.507l.066-.676c.072-.744.108-1.116 0-1.46c-.106-.345-.345-.624-.821-1.18l-.434-.508c-1.677-1.96-2.515-2.941-2.223-3.882S3.58 8.328 6.04 7.772l.636-.144c.699-.158 1.048-.237 1.329-.45s.46-.536.82-1.182z"/></svg>
+            <span style="font-size:13px;font-weight:700;color:#fff">4.9</span>
+            <span style="font-size:11px;color:rgba(255,255,255,.5)">App Store</span>
+          </div>
+        </div>
+
+        <!-- phone (larger) -->
+        <div style="position:relative;z-index:4;width:322px;height:656px;border-radius:52px;background:linear-gradient(160deg,#211b3c,#0c0a22);border:1px solid rgba(255,255,255,.13);padding:12px;box-shadow:0 60px 120px rgba(0,0,0,.7),0 0 0 1px rgba(255,255,255,.03),inset 0 0 0 2px rgba(255,255,255,.03);transform:rotateY(-10deg) rotateX(4deg) rotateZ(.5deg);animation:sfFloat 9s ease-in-out infinite">
+          <div style="position:absolute;top:25px;left:50%;transform:translateX(-50%);width:100px;height:26px;background:#07051A;border-radius:14px;z-index:5;box-shadow:inset 0 -1px 2px rgba(255,255,255,.05)"></div>
+          <div style="width:100%;height:100%;border-radius:40px;overflow:hidden;background:#3a3a3a">
+            <img src="assets/feed-screen.png" alt="Social Fightin — Followers Feed" style="width:100%;height:100%;object-fit:cover;object-position:top center;display:block">
+          </div>
+          <div style="position:absolute;inset:12px;border-radius:40px;pointer-events:none;background:linear-gradient(120deg,rgba(255,255,255,.14),transparent 40%)"></div>
+        </div>
+      </div>
+    </div>
+
+    <sc-if value="{{ showAtmosphere }}" hint-placeholder-val="{{ true }}">
+    <!-- crowd silhouette + flashes -->
+    <div style="position:absolute;left:0;right:0;bottom:-2px;height:230px;z-index:3;pointer-events:none;background:radial-gradient(20px 26px at 30px 100%,#090717 71%,transparent 73%) 0 0/58px 60px repeat-x,radial-gradient(26px 32px at 26px 100%,#0c0922 71%,transparent 73%) 16px 0/74px 70px repeat-x,linear-gradient(180deg,transparent,#07051A 80%);opacity:.92;filter:blur(.4px)"></div>
+    <div style="position:absolute;left:0;right:0;bottom:150px;height:40px;z-index:3;pointer-events:none;background:linear-gradient(180deg,rgba(226,75,74,.18),transparent);filter:blur(12px)"></div>
+    <div style="position:absolute;left:18%;bottom:172px;width:5px;height:5px;border-radius:50%;background:#fff;z-index:4;animation:sfFlash 5s ease-in-out infinite"></div>
+    <div style="position:absolute;left:42%;bottom:188px;width:4px;height:4px;border-radius:50%;background:#ffd1d0;z-index:4;animation:sfFlash 6.4s ease-in-out .8s infinite"></div>
+    <div style="position:absolute;left:63%;bottom:166px;width:5px;height:5px;border-radius:50%;background:#fff;z-index:4;animation:sfFlash 5.7s ease-in-out 1.6s infinite"></div>
+    <div style="position:absolute;left:82%;bottom:184px;width:4px;height:4px;border-radius:50%;background:#ffd1d0;z-index:4;animation:sfFlash 7s ease-in-out .4s infinite"></div>
+    </sc-if>
+  </header>
+
+  <!-- ===== LIVE ACTIVITY TICKER ===== -->
+  <sc-if value="{{ showTicker }}" hint-placeholder-val="{{ true }}">
+  <section style="position:relative;z-index:12;margin-top:-10px">
+    <div style="border-top:1px solid rgba(255,255,255,.07);border-bottom:1px solid rgba(255,255,255,.07);background:rgba(11,7,36,.5);backdrop-filter:blur(8px);overflow:hidden;position:relative">
+      <div style="position:absolute;left:0;top:0;bottom:0;width:160px;z-index:3;pointer-events:none;background:linear-gradient(90deg,#07051A,transparent)"></div>
+      <div style="position:absolute;right:0;top:0;bottom:0;width:160px;z-index:3;pointer-events:none;background:linear-gradient(270deg,#07051A,transparent)"></div>
+      <div class="sf-mq-pause">
+        <div class="sf-marquee-track" style="padding:15px 0">
+          <span style="display:inline-flex;align-items:center;gap:11px;padding:0 30px;font-size:14px;color:rgba(255,255,255,.7);white-space:nowrap"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" style="font-size:18px;color:#ff6b6a;display:inline-block;vertical-align:-0.125em"><path fill="currentColor" d="M16 6.5A4.5 4.5 0 0 1 20.5 11v1A2.5 2.5 0 0 1 18 14.5h-1.15A4 4 0 0 1 13 17.85V18H7.2A2.2 2.2 0 0 1 5 15.8v-3.4A3 3 0 0 1 4.2 7.7 4.5 4.5 0 0 1 8.5 6.5z"/><path fill="currentColor" d="M7.2 19h5.8v.3A2.2 2.2 0 0 1 10.8 21.5H9.4A2.2 2.2 0 0 1 7.2 19.3z"/></svg><strong style="color:#fff">Marcus Reyes</strong> challenged <strong style="color:#fff">Daniel Cruz</strong><span style="color:rgba(255,255,255,.25)">•</span></span>
+          <span style="display:inline-flex;align-items:center;gap:11px;padding:0 30px;font-size:14px;color:rgba(255,255,255,.7);white-space:nowrap"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" style="font-size:18px;color:#60c7ff;display:inline-block;vertical-align:-0.125em"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7.5C4 6.7 4.7 6 5.5 6H11l9 9-5.5 5.5L4 11z"/><circle cx="8.3" cy="10.3" r="1.2"/></g></svg>New promoter <strong style="color:#fff">Apex Boxing</strong> joined<span style="color:rgba(255,255,255,.25)">•</span></span>
+          <span style="display:inline-flex;align-items:center;gap:11px;padding:0 30px;font-size:14px;color:rgba(255,255,255,.7);white-space:nowrap"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" style="font-size:18px;color:#37d67a;display:inline-block;vertical-align:-0.125em"><path fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" d="M5 12.5 9.8 17.3 19 7.2"/></svg><strong style="color:#fff">5 fighters</strong> verified today<span style="color:rgba(255,255,255,.25)">•</span></span>
+          <span style="display:inline-flex;align-items:center;gap:11px;padding:0 30px;font-size:14px;color:rgba(255,255,255,.7);white-space:nowrap"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" style="font-size:18px;color:#ffa200;display:inline-block;vertical-align:-0.125em"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="16" rx="3"/><path d="M4 9.5h16M8 3v4M16 3v4"/></g></svg>Upcoming event <strong style="color:#fff">Vegas Fight Night</strong> announced<span style="color:rgba(255,255,255,.25)">•</span></span>
+          <span style="display:inline-flex;align-items:center;gap:11px;padding:0 30px;font-size:14px;color:rgba(255,255,255,.7);white-space:nowrap"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" style="font-size:18px;color:#b9a3ff;display:inline-block;vertical-align:-0.125em"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 19a5.5 5.5 0 0 1 11 0"/><path d="M15.8 5.3a3.2 3.2 0 0 1 0 5.4"/><path d="M17.5 14.4A5.5 5.5 0 0 1 21 19"/></g></svg><strong style="color:#fff">120 fans</strong> followed new fighters<span style="color:rgba(255,255,255,.25)">•</span></span>
+          <span style="display:inline-flex;align-items:center;gap:11px;padding:0 30px;font-size:14px;color:rgba(255,255,255,.7);white-space:nowrap"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" style="font-size:18px;color:#ff6b6a;display:inline-block;vertical-align:-0.125em"><path fill="currentColor" d="M16 6.5A4.5 4.5 0 0 1 20.5 11v1A2.5 2.5 0 0 1 18 14.5h-1.15A4 4 0 0 1 13 17.85V18H7.2A2.2 2.2 0 0 1 5 15.8v-3.4A3 3 0 0 1 4.2 7.7 4.5 4.5 0 0 1 8.5 6.5z"/><path fill="currentColor" d="M7.2 19h5.8v.3A2.2 2.2 0 0 1 10.8 21.5H9.4A2.2 2.2 0 0 1 7.2 19.3z"/></svg><strong style="color:#fff">Marcus Reyes</strong> challenged <strong style="color:#fff">Daniel Cruz</strong><span style="color:rgba(255,255,255,.25)">•</span></span>
+          <span style="display:inline-flex;align-items:center;gap:11px;padding:0 30px;font-size:14px;color:rgba(255,255,255,.7);white-space:nowrap"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" style="font-size:18px;color:#60c7ff;display:inline-block;vertical-align:-0.125em"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7.5C4 6.7 4.7 6 5.5 6H11l9 9-5.5 5.5L4 11z"/><circle cx="8.3" cy="10.3" r="1.2"/></g></svg>New promoter <strong style="color:#fff">Apex Boxing</strong> joined<span style="color:rgba(255,255,255,.25)">•</span></span>
+          <span style="display:inline-flex;align-items:center;gap:11px;padding:0 30px;font-size:14px;color:rgba(255,255,255,.7);white-space:nowrap"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" style="font-size:18px;color:#37d67a;display:inline-block;vertical-align:-0.125em"><path fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" d="M5 12.5 9.8 17.3 19 7.2"/></svg><strong style="color:#fff">5 fighters</strong> verified today<span style="color:rgba(255,255,255,.25)">•</span></span>
+          <span style="display:inline-flex;align-items:center;gap:11px;padding:0 30px;font-size:14px;color:rgba(255,255,255,.7);white-space:nowrap"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" style="font-size:18px;color:#ffa200;display:inline-block;vertical-align:-0.125em"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="16" rx="3"/><path d="M4 9.5h16M8 3v4M16 3v4"/></g></svg>Upcoming event <strong style="color:#fff">Vegas Fight Night</strong> announced<span style="color:rgba(255,255,255,.25)">•</span></span>
+          <span style="display:inline-flex;align-items:center;gap:11px;padding:0 30px;font-size:14px;color:rgba(255,255,255,.7);white-space:nowrap"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" style="font-size:18px;color:#b9a3ff;display:inline-block;vertical-align:-0.125em"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 19a5.5 5.5 0 0 1 11 0"/><path d="M15.8 5.3a3.2 3.2 0 0 1 0 5.4"/><path d="M17.5 14.4A5.5 5.5 0 0 1 21 19"/></g></svg><strong style="color:#fff">120 fans</strong> followed new fighters<span style="color:rgba(255,255,255,.25)">•</span></span>
+        </div>
+      </div>
+    </div>
+  </section>
+  </sc-if>
+
+  <!-- ===== SOCIAL PROOF — STATS + LOGO WALL ===== -->
+  <section style="position:relative;z-index:10;max-width:1180px;margin:0 auto;padding:96px 32px 40px">
+    <div class="reveal" style="text-align:center;margin-bottom:48px">
+      <div style="display:inline-flex;align-items:center;gap:9px;font-size:12.5px;font-weight:700;letter-spacing:2.5px;color:#ff6b6a;margin-bottom:16px"><span style="width:22px;height:1.5px;background:#E24B4A"></span>TRUSTED ACROSS THE SPORT<span style="width:22px;height:1.5px;background:#E24B4A"></span></div>
+      <h2 style="font-family:'Bebas Neue';font-size:50px;line-height:.95;letter-spacing:.5px;color:rgba(255,255,255,.92)">The Whole Industry, In One Place</h2>
+    </div>
+    <div class="sf-stats reveal" style="display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-bottom:56px">
+      <div class="sf-card" style="position:relative;overflow:hidden;background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.018));border:1px solid rgba(255,255,255,.09);border-radius:22px;padding:30px 26px;box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 18px 44px rgba(0,0,0,.35)">
+        <div style="position:absolute;top:0;left:26px;right:26px;height:2px;background:linear-gradient(90deg,#E24B4A,transparent)"></div>
+        <span class="sf-ico" style="display:grid;place-items:center;width:46px;height:46px;border-radius:13px;background:rgba(226,75,74,.12);border:1px solid rgba(226,75,74,.22);color:#ff6b6a;margin-bottom:20px;transition:.35s"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" style="font-size:24px;display:inline-block;vertical-align:-0.125em"><path fill="currentColor" d="M16 6.5A4.5 4.5 0 0 1 20.5 11v1A2.5 2.5 0 0 1 18 14.5h-1.15A4 4 0 0 1 13 17.85V18H7.2A2.2 2.2 0 0 1 5 15.8v-3.4A3 3 0 0 1 4.2 7.7 4.5 4.5 0 0 1 8.5 6.5z"/><path fill="currentColor" d="M7.2 19h5.8v.3A2.2 2.2 0 0 1 10.8 21.5H9.4A2.2 2.2 0 0 1 7.2 19.3z"/></svg></span>
+        <div style="font-family:'Bebas Neue';font-size:56px;line-height:.95;background:linear-gradient(180deg,#fff,#c9c4e0);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">12K<span style="color:#E24B4A;-webkit-text-fill-color:#E24B4A">+</span></div>
+        <div style="font-size:14px;color:rgba(255,255,255,.55);margin-top:6px;font-weight:500">Fighters</div>
+        <div style="display:inline-flex;align-items:center;gap:5px;margin-top:12px;font-size:11.5px;font-weight:600;color:#37d67a"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" style="display:inline-block;vertical-align:-0.125em"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></g></svg>+218 this week</div>
+      </div>
+      <div class="sf-card" style="position:relative;overflow:hidden;background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.018));border:1px solid rgba(255,255,255,.09);border-radius:22px;padding:30px 26px;box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 18px 44px rgba(0,0,0,.35)">
+        <div style="position:absolute;top:0;left:26px;right:26px;height:2px;background:linear-gradient(90deg,#E24B4A,transparent)"></div>
+        <span class="sf-ico" style="display:grid;place-items:center;width:46px;height:46px;border-radius:13px;background:rgba(226,75,74,.12);border:1px solid rgba(226,75,74,.22);color:#ff6b6a;margin-bottom:20px;transition:.35s"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" style="font-size:24px;display:inline-block;vertical-align:-0.125em"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="4.5" width="12" height="16.5" rx="2.2"/><path d="M9.2 4.5a1 1 0 0 1 1-1h3.6a1 1 0 0 1 1 1V6a1 1 0 0 1-1 1h-3.6a1 1 0 0 1-1-1z"/><path d="M9 11.5h6M9 15h4"/></g></svg></span>
+        <div style="font-family:'Bebas Neue';font-size:56px;line-height:.95;background:linear-gradient(180deg,#fff,#c9c4e0);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">4K<span style="color:#E24B4A;-webkit-text-fill-color:#E24B4A">+</span></div>
+        <div style="font-size:14px;color:rgba(255,255,255,.55);margin-top:6px;font-weight:500">Managers</div>
+        <div style="display:inline-flex;align-items:center;gap:5px;margin-top:12px;font-size:11.5px;font-weight:600;color:#37d67a"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" style="display:inline-block;vertical-align:-0.125em"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></g></svg>+64 this week</div>
+      </div>
+      <div class="sf-card" style="position:relative;overflow:hidden;background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.018));border:1px solid rgba(255,255,255,.09);border-radius:22px;padding:30px 26px;box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 18px 44px rgba(0,0,0,.35)">
+        <div style="position:absolute;top:0;left:26px;right:26px;height:2px;background:linear-gradient(90deg,#E24B4A,transparent)"></div>
+        <span class="sf-ico" style="display:grid;place-items:center;width:46px;height:46px;border-radius:13px;background:rgba(226,75,74,.12);border:1px solid rgba(226,75,74,.22);color:#ff6b6a;margin-bottom:20px;transition:.35s"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" style="font-size:24px;display:inline-block;vertical-align:-0.125em"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7.5C4 6.7 4.7 6 5.5 6H11l9 9-5.5 5.5L4 11z"/><circle cx="8.3" cy="10.3" r="1.2"/></g></svg></span>
+        <div style="font-family:'Bebas Neue';font-size:56px;line-height:.95;background:linear-gradient(180deg,#fff,#c9c4e0);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">800<span style="color:#E24B4A;-webkit-text-fill-color:#E24B4A">+</span></div>
+        <div style="font-size:14px;color:rgba(255,255,255,.55);margin-top:6px;font-weight:500">Promoters</div>
+        <div style="display:inline-flex;align-items:center;gap:5px;margin-top:12px;font-size:11.5px;font-weight:600;color:#37d67a"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" style="display:inline-block;vertical-align:-0.125em"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></g></svg>+12 this week</div>
+      </div>
+      <div class="sf-card" style="position:relative;overflow:hidden;background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.018));border:1px solid rgba(255,255,255,.09);border-radius:22px;padding:30px 26px;box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 18px 44px rgba(0,0,0,.35)">
+        <div style="position:absolute;top:0;left:26px;right:26px;height:2px;background:linear-gradient(90deg,#E24B4A,transparent)"></div>
+        <span class="sf-ico" style="display:grid;place-items:center;width:46px;height:46px;border-radius:13px;background:rgba(226,75,74,.12);border:1px solid rgba(226,75,74,.22);color:#ff6b6a;margin-bottom:20px;transition:.35s"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" style="font-size:24px;display:inline-block;vertical-align:-0.125em"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 19a5.5 5.5 0 0 1 11 0"/><path d="M15.8 5.3a3.2 3.2 0 0 1 0 5.4"/><path d="M17.5 14.4A5.5 5.5 0 0 1 21 19"/></g></svg></span>
+        <div style="font-family:'Bebas Neue';font-size:56px;line-height:.95;background:linear-gradient(180deg,#fff,#c9c4e0);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">50K<span style="color:#E24B4A;-webkit-text-fill-color:#E24B4A">+</span></div>
+        <div style="font-size:14px;color:rgba(255,255,255,.55);margin-top:6px;font-weight:500">Fans</div>
+        <div style="display:inline-flex;align-items:center;gap:5px;margin-top:12px;font-size:11.5px;font-weight:600;color:#37d67a"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" style="display:inline-block;vertical-align:-0.125em"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></g></svg>+1.4K this week</div>
+      </div>
+    </div>
+    <!-- logo wall -->
+    <div class="reveal" style="text-align:center">
+      <div style="font-size:12px;font-weight:600;letter-spacing:2px;color:rgba(255,255,255,.4);margin-bottom:26px">GYMS, FEDERATIONS &amp; PROMOTIONS BUILDING ON SOCIAL FIGHTIN</div>
+      <div class="sf-logos" style="display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:18px 48px;opacity:.62">
+        <span style="display:inline-flex;align-items:center;gap:9px;font-family:'Bebas Neue';font-size:27px;letter-spacing:1.5px;color:#fff"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" style="font-size:24px;display:inline-block;vertical-align:-0.125em"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 5 6v5c0 4.6 3 7.6 7 9 4-1.4 7-4.4 7-9V6z"/><path d="m12 8.3.9 1.85 2.05.25-1.5 1.4.4 2-1.85-1-1.85 1 .4-2-1.5-1.4 2.05-.25z"/></g></svg>IRONSIDE BC</span>
+        <span style="display:inline-flex;align-items:center;gap:9px;font-family:'Bebas Neue';font-size:27px;letter-spacing:1.5px;color:#fff"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" style="font-size:24px;display:inline-block;vertical-align:-0.125em"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="5"/><path d="m12 7.2.95 1.9 2.1.3-1.5 1.45.35 2.05L12 11.9l-1.85.95.35-2.05L9 9.4l2.1-.3z"/><path d="M8.6 13.4 7 21l5-2.6L17 21l-1.6-7.6"/></g></svg>GOLDEN GLOVES</span>
+        <span style="display:inline-flex;align-items:center;gap:9px;font-family:'Bebas Neue';font-size:27px;letter-spacing:1.5px;color:#fff"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" style="font-size:24px;display:inline-block;vertical-align:-0.125em"><path fill="currentColor" d="M16 6.5A4.5 4.5 0 0 1 20.5 11v1A2.5 2.5 0 0 1 18 14.5h-1.15A4 4 0 0 1 13 17.85V18H7.2A2.2 2.2 0 0 1 5 15.8v-3.4A3 3 0 0 1 4.2 7.7 4.5 4.5 0 0 1 8.5 6.5z"/><path fill="currentColor" d="M7.2 19h5.8v.3A2.2 2.2 0 0 1 10.8 21.5H9.4A2.2 2.2 0 0 1 7.2 19.3z"/></svg>TKO ACADEMY</span>
+        <span style="display:inline-flex;align-items:center;gap:9px;font-family:'Bebas Neue';font-size:27px;letter-spacing:1.5px;color:#fff"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" style="font-size:24px;display:inline-block;vertical-align:-0.125em"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8.5 7.5 11 12 5l4.5 6L20 8.5 18.4 18H5.6z"/><path d="M6.5 18h11"/></g></svg>APEX PROMOTIONS</span>
+        <span style="display:inline-flex;align-items:center;gap:9px;font-family:'Bebas Neue';font-size:27px;letter-spacing:1.5px;color:#fff"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" style="font-size:24px;display:inline-block;vertical-align:-0.125em"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 21V4M6 5h11l-2 3.5L17 12H6"/></g></svg>UNITED BOXING FED</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ROLES — PROFILE PREVIEWS ===== -->
+  <section id="roles" data-chap-sec="roles" style="position:relative;z-index:10;max-width:1180px;margin:0 auto;padding:110px 32px 70px">
+    <div class="reveal" style="display:flex;align-items:flex-end;justify-content:space-between;gap:30px;margin-bottom:56px;flex-wrap:wrap">
+      <div>
+        <div style="display:inline-flex;align-items:center;gap:9px;font-size:12.5px;font-weight:700;letter-spacing:2.5px;color:#ff6b6a;margin-bottom:16px"><span style="font-family:'Bebas Neue';font-size:18px;letter-spacing:2px;opacity:.6">02 — CONNECT</span></div>
+        <h2 style="font-family:'Bebas Neue';font-size:64px;line-height:.92;letter-spacing:.5px;max-width:560px">Four Corners,<br>One Network</h2>
+      </div>
+      <p style="font-size:16px;line-height:1.7;color:rgba(255,255,255,.58);max-width:360px">Whoever you are in the fight game, you get a profile built for how you actually work — and the people you need are already on it.</p>
+    </div>
+    <div class="sf-roles" style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px">
+      <!-- Fighter -->
+      <div class="sf-card reveal-s" style="position:relative;overflow:hidden;background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.016));border:1px solid rgba(255,255,255,.09);border-radius:24px;box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 18px 44px rgba(0,0,0,.35)">
+        <div style="position:relative;height:128px;background:linear-gradient(135deg,#E24B4A,#7c2625)">
+          <image-slot id="role-fighter" style="position:absolute;inset:0;width:100%;height:100%" shape="rect" fit="cover" placeholder="Drop fighter photo"></image-slot>
+          <div style="position:absolute;inset:0;background:linear-gradient(180deg,transparent 30%,rgba(11,7,36,.85));pointer-events:none"></div>
+          <span style="position:absolute;top:12px;left:12px;display:inline-flex;align-items:center;gap:6px;font-size:10.5px;font-weight:700;letter-spacing:.5px;background:rgba(11,7,36,.55);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.2);color:#fff;padding:5px 10px;border-radius:30px">FIGHTER</span>
+          <span style="position:absolute;top:12px;right:12px;display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:#60c7ff;color:#06283a;pointer-events:none"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" style="font-size:16px;display:inline-block;vertical-align:-0.125em"><path fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" d="M5 12.5 9.8 17.3 19 7.2"/></svg></span>
+        </div>
+        <div style="padding:18px 20px 22px;position:relative;pointer-events:none">
+          <div style="font-weight:700;font-size:16px">Marcus "Steel" Reyes</div>
+          <div style="font-size:12.5px;color:rgba(255,255,255,.5);margin-top:3px">Welterweight · Las Vegas</div>
+          <div style="display:flex;gap:8px;margin-top:16px">
+            <div style="flex:1;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:9px 0;text-align:center"><div style="font-family:'Bebas Neue';font-size:21px;color:#fff">18-1</div><div style="font-size:9.5px;color:rgba(255,255,255,.45);letter-spacing:.4px">RECORD</div></div>
+            <div style="flex:1;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:9px 0;text-align:center"><div style="font-family:'Bebas Neue';font-size:21px;color:#ff6b6a">24K</div><div style="font-size:9.5px;color:rgba(255,255,255,.45);letter-spacing:.4px">FOLLOWERS</div></div>
+          </div>
+          <p style="font-size:13px;line-height:1.55;color:rgba(255,255,255,.52);margin-top:16px">Build your record, post your highlight reel, and get matched with opponents in your division.</p>
+        </div>
+      </div>
+      <!-- Manager -->
+      <div class="sf-card reveal-s" style="position:relative;overflow:hidden;background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.016));border:1px solid rgba(255,255,255,.09);border-radius:24px;box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 18px 44px rgba(0,0,0,.35)">
+        <div style="position:relative;height:128px;background:linear-gradient(135deg,#7c4dff,#2a1d4f)">
+          <image-slot id="role-manager" style="position:absolute;inset:0;width:100%;height:100%" shape="rect" fit="cover" placeholder="Drop manager photo"></image-slot>
+          <div style="position:absolute;inset:0;background:linear-gradient(180deg,transparent 30%,rgba(11,7,36,.85));pointer-events:none"></div>
+          <span style="position:absolute;top:12px;left:12px;display:inline-flex;align-items:center;gap:6px;font-size:10.5px;font-weight:700;letter-spacing:.5px;background:rgba(11,7,36,.55);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.2);color:#fff;padding:5px 10px;border-radius:30px">MANAGER</span>
+          <span style="position:absolute;top:12px;right:12px;display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:#60c7ff;color:#06283a;pointer-events:none"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" style="font-size:16px;display:inline-block;vertical-align:-0.125em"><path fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" d="M5 12.5 9.8 17.3 19 7.2"/></svg></span>
+        </div>
+        <div style="padding:18px 20px 22px;pointer-events:none">
+          <div style="font-weight:700;font-size:16px">Elena Vásquez</div>
+          <div style="font-size:12.5px;color:rgba(255,255,255,.5);margin-top:3px">Vásquez Sports Mgmt</div>
+          <div style="display:flex;gap:8px;margin-top:16px">
+            <div style="flex:1;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:9px 0;text-align:center"><div style="font-family:'Bebas Neue';font-size:21px;color:#fff">14</div><div style="font-size:9.5px;color:rgba(255,255,255,.45);letter-spacing:.4px">ON ROSTER</div></div>
+            <div style="flex:1;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:9px 0;text-align:center"><div style="font-family:'Bebas Neue';font-size:21px;color:#ff6b6a">3</div><div style="font-size:9.5px;color:rgba(255,255,255,.45);letter-spacing:.4px">CHAMPIONS</div></div>
+          </div>
+          <p style="font-size:13px;line-height:1.55;color:rgba(255,255,255,.52);margin-top:16px">Manage your roster, negotiate bouts, and track every fighter's career from one dashboard.</p>
+        </div>
+      </div>
+      <!-- Promoter -->
+      <div class="sf-card reveal-s" style="position:relative;overflow:hidden;background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.016));border:1px solid rgba(255,255,255,.09);border-radius:24px;box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 18px 44px rgba(0,0,0,.35)">
+        <div style="position:relative;height:128px;background:linear-gradient(135deg,#ffa200,#7c3a00)">
+          <image-slot id="role-promoter" style="position:absolute;inset:0;width:100%;height:100%" shape="rect" fit="cover" placeholder="Drop promoter photo"></image-slot>
+          <div style="position:absolute;inset:0;background:linear-gradient(180deg,transparent 30%,rgba(11,7,36,.85));pointer-events:none"></div>
+          <span style="position:absolute;top:12px;left:12px;display:inline-flex;align-items:center;gap:6px;font-size:10.5px;font-weight:700;letter-spacing:.5px;background:rgba(11,7,36,.55);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.2);color:#fff;padding:5px 10px;border-radius:30px">PROMOTER</span>
+          <span style="position:absolute;top:12px;right:12px;display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:#60c7ff;color:#06283a;pointer-events:none"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" style="font-size:16px;display:inline-block;vertical-align:-0.125em"><path fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" d="M5 12.5 9.8 17.3 19 7.2"/></svg></span>
+        </div>
+        <div style="padding:18px 20px 22px;pointer-events:none">
+          <div style="font-weight:700;font-size:16px">Apex Promotions</div>
+          <div style="font-size:12.5px;color:rgba(255,255,255,.5);margin-top:3px">Fight Cards · Nationwide</div>
+          <div style="display:flex;gap:8px;margin-top:16px">
+            <div style="flex:1;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:9px 0;text-align:center"><div style="font-family:'Bebas Neue';font-size:21px;color:#fff">62</div><div style="font-size:9.5px;color:rgba(255,255,255,.45);letter-spacing:.4px">EVENTS</div></div>
+            <div style="flex:1;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:9px 0;text-align:center"><div style="font-family:'Bebas Neue';font-size:21px;color:#ff6b6a">98%</div><div style="font-size:9.5px;color:rgba(255,255,255,.45);letter-spacing:.4px">SELL-OUT</div></div>
+          </div>
+          <p style="font-size:13px;line-height:1.55;color:rgba(255,255,255,.52);margin-top:16px">Discover talent, build fight cards, and sell out events with verified athletes and real reach.</p>
+        </div>
+      </div>
+      <!-- Fan -->
+      <div class="sf-card reveal-s" style="position:relative;overflow:hidden;background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.016));border:1px solid rgba(255,255,255,.09);border-radius:24px;box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 18px 44px rgba(0,0,0,.35)">
+        <div style="position:relative;height:128px;background:linear-gradient(135deg,#60c7ff,#16405e)">
+          <image-slot id="role-fan" style="position:absolute;inset:0;width:100%;height:100%" shape="rect" fit="cover" placeholder="Drop fan photo"></image-slot>
+          <div style="position:absolute;inset:0;background:linear-gradient(180deg,transparent 30%,rgba(11,7,36,.85));pointer-events:none"></div>
+          <span style="position:absolute;top:12px;left:12px;display:inline-flex;align-items:center;gap:6px;font-size:10.5px;font-weight:700;letter-spacing:.5px;background:rgba(11,7,36,.55);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.2);color:#fff;padding:5px 10px;border-radius:30px">FAN</span>
+        </div>
+        <div style="padding:18px 20px 22px;pointer-events:none">
+          <div style="font-weight:700;font-size:16px">Jordan Blake</div>
+          <div style="font-size:12.5px;color:rgba(255,255,255,.5);margin-top:3px">Ringside Member</div>
+          <div style="display:flex;gap:8px;margin-top:16px">
+            <div style="flex:1;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:9px 0;text-align:center"><div style="font-family:'Bebas Neue';font-size:21px;color:#fff">38</div><div style="font-size:9.5px;color:rgba(255,255,255,.45);letter-spacing:.4px">FOLLOWING</div></div>
+            <div style="flex:1;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:9px 0;text-align:center"><div style="font-family:'Bebas Neue';font-size:21px;color:#ff6b6a">12</div><div style="font-size:9.5px;color:rgba(255,255,255,.45);letter-spacing:.4px">EVENTS</div></div>
+          </div>
+          <p style="font-size:13px;line-height:1.55;color:rgba(255,255,255,.52);margin-top:16px">Follow your favorite fighters, never miss an event, and get closer to the sport you love.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FEATURES — APPLE-STYLE SHOWCASE ===== -->
+  <section id="features" data-chap-sec="features" style="position:relative;z-index:10;max-width:1180px;margin:0 auto;padding:100px 32px 40px">
+    <div class="reveal" style="text-align:center;margin-bottom:30px">
+      <div style="font-family:'Bebas Neue';font-size:18px;letter-spacing:2px;color:#ff6b6a;opacity:.85;margin-bottom:10px">03 — COMPETE</div>
+      <h2 style="font-family:'Bebas Neue';font-size:64px;line-height:.92;letter-spacing:.5px">The Tools That Build Careers</h2>
+    </div>
+
+    <!-- Feature 1: Matchmaking (media right) -->
+    <div class="sf-split" style="display:grid;grid-template-columns:1fr 1.08fr;gap:56px;align-items:center;padding:60px 0">
+      <div class="reveal-l">
+        <div style="display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:1.5px;color:#ff6b6a;background:rgba(226,75,74,.1);border:1px solid rgba(226,75,74,.25);padding:6px 13px;border-radius:30px;margin-bottom:20px"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" style="font-size:15px;display:inline-block;vertical-align:-0.125em"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9.2 14.8 14.8 9.2"/><path d="M8.4 12.6 7 14a3 3 0 0 0 4.2 4.2l1.5-1.5"/><path d="M15.6 11.4 17 10a3 3 0 0 0-4.2-4.2l-1.5 1.5"/></g></svg>MATCHMAKING ENGINE</div>
+        <h3 style="font-family:'Bebas Neue';font-size:46px;line-height:.96;letter-spacing:.5px;margin-bottom:16px">Fair Fights, Found in Seconds</h3>
+        <p style="font-size:16.5px;line-height:1.7;color:rgba(255,255,255,.6);margin-bottom:24px">Our algorithm pairs fighters by weight, record, style, and location — surfacing fair, marketable bouts in seconds instead of months of phone calls.</p>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <div style="display:flex;align-items:center;gap:11px;font-size:14.5px;color:rgba(255,255,255,.72)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" style="font-size:20px;color:#37d67a;display:inline-block;vertical-align:-0.125em"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m8.4 12 2.4 2.4 4.8-4.8"/></g></svg>Weight &amp; division-aware pairing</div>
+          <div style="display:flex;align-items:center;gap:11px;font-size:14.5px;color:rgba(255,255,255,.72)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" style="font-size:20px;color:#37d67a;display:inline-block;vertical-align:-0.125em"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m8.4 12 2.4 2.4 4.8-4.8"/></g></svg>Style &amp; record compatibility scoring</div>
+          <div style="display:flex;align-items:center;gap:11px;font-size:14.5px;color:rgba(255,255,255,.72)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" style="font-size:20px;color:#37d67a;display:inline-block;vertical-align:-0.125em"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m8.4 12 2.4 2.4 4.8-4.8"/></g></svg>One-tap bout proposals</div>
+        </div>
+      </div>
+      <!-- matchmaking mockup -->
+      <div class="reveal-r" style="position:relative">
+        <div style="position:absolute;inset:-30px;background:radial-gradient(circle at 60% 40%,rgba(226,75,74,.25),transparent 65%);filter:blur(34px);z-index:0"></div>
+        <div class="sf-card" style="position:relative;z-index:1;background:linear-gradient(180deg,rgba(28,22,54,.9),rgba(16,12,36,.9));border:1px solid rgba(255,255,255,.1);border-radius:26px;padding:24px;box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 40px 90px rgba(0,0,0,.55)">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
+            <span style="font-family:'Bebas Neue';font-size:22px;letter-spacing:.5px">PROPOSED MATCH</span>
+            <span style="display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;color:#37d67a;background:rgba(55,214,122,.12);border:1px solid rgba(55,214,122,.3);padding:5px 11px;border-radius:30px"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" style="display:inline-block;vertical-align:-0.125em"><path fill="currentColor" d="M13.2 2 4 13.2h5.6L8.8 22 20 10.4h-5.6z"/></svg>94% MATCH</span>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:14px;align-items:center">
+            <div style="text-align:center">
+              <div style="width:72px;height:72px;margin:0 auto 10px;border-radius:20px;background:linear-gradient(135deg,#E24B4A,#7c2625);display:grid;place-items:center"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" style="font-size:34px;color:#fff;display:inline-block;vertical-align:-0.125em"><path fill="currentColor" d="M16 6.5A4.5 4.5 0 0 1 20.5 11v1A2.5 2.5 0 0 1 18 14.5h-1.15A4 4 0 0 1 13 17.85V18H7.2A2.2 2.2 0 0 1 5 15.8v-3.4A3 3 0 0 1 4.2 7.7 4.5 4.5 0 0 1 8.5 6.5z"/><path fill="currentColor" d="M7.2 19h5.8v.3A2.2 2.2 0 0 1 10.8 21.5H9.4A2.2 2.2 0 0 1 7.2 19.3z"/></svg></div>
+              <div style="font-weight:700;font-size:14px">M. Reyes</div>
+              <div style="font-size:11px;color:rgba(255,255,255,.5);margin-top:2px">18-1-0 · WW</div>
+            </div>
+            <div style="font-family:'Bebas Neue';font-size:34px;color:#ff6b6a">VS</div>
+            <div style="text-align:center">
+              <div style="width:72px;height:72px;margin:0 auto 10px;border-radius:20px;background:linear-gradient(135deg,#7c4dff,#2a1d4f);display:grid;place-items:center"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" style="font-size:34px;color:#fff;display:inline-block;vertical-align:-0.125em"><path fill="currentColor" d="M16 6.5A4.5 4.5 0 0 1 20.5 11v1A2.5 2.5 0 0 1 18 14.5h-1.15A4 4 0 0 1 13 17.85V18H7.2A2.2 2.2 0 0 1 5 15.8v-3.4A3 3 0 0 1 4.2 7.7 4.5 4.5 0 0 1 8.5 6.5z"/><path fill="currentColor" d="M7.2 19h5.8v.3A2.2 2.2 0 0 1 10.8 21.5H9.4A2.2 2.2 0 0 1 7.2 19.3z"/></svg></div>
+              <div style="font-weight:700;font-size:14px">D. Cruz</div>
+              <div style="font-size:11px;color:rgba(255,255,255,.5);margin-top:2px">17-2-1 · WW</div>
+            </div>
+          </div>
+          <div style="margin-top:20px;display:flex;flex-direction:column;gap:11px">
+            <div><div style="display:flex;justify-content:space-between;font-size:11.5px;color:rgba(255,255,255,.55);margin-bottom:5px"><span>Weight match</span><span style="color:#fff">Identical</span></div><div style="height:6px;border-radius:6px;background:rgba(255,255,255,.08);overflow:hidden"><div style="width:100%;height:100%;background:linear-gradient(90deg,#E24B4A,#ff7c7b)"></div></div></div>
+            <div><div style="display:flex;justify-content:space-between;font-size:11.5px;color:rgba(255,255,255,.55);margin-bottom:5px"><span>Record parity</span><span style="color:#fff">Strong</span></div><div style="height:6px;border-radius:6px;background:rgba(255,255,255,.08);overflow:hidden"><div style="width:88%;height:100%;background:linear-gradient(90deg,#E24B4A,#ff7c7b)"></div></div></div>
+          </div>
+          <div style="display:flex;gap:10px;margin-top:20px">
+            <div style="flex:1;text-align:center;background:linear-gradient(180deg,#ef5d5c,#d33f3e);color:#fff;font-size:13px;font-weight:600;padding:12px 0;border-radius:30px;box-shadow:0 8px 20px rgba(226,75,74,.4)">Propose Bout</div>
+            <div style="flex:1;text-align:center;background:rgba(255,255,255,.06);color:#fff;font-size:13px;font-weight:600;padding:12px 0;border-radius:30px;border:1px solid rgba(255,255,255,.12)">View Tale of Tape</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Feature 2: Social Feed (media left) -->
+    <div class="sf-split sf-split-rev" style="display:grid;grid-template-columns:1.08fr 1fr;gap:56px;align-items:center;padding:60px 0">
+      <!-- feed mockup -->
+      <div class="reveal-l sf-split-media" style="position:relative;display:flex;justify-content:center">
+        <div style="position:absolute;inset:-30px;background:radial-gradient(circle at 40% 40%,rgba(120,72,255,.26),transparent 65%);filter:blur(34px);z-index:0"></div>
+        <div style="position:relative;z-index:1;width:288px;border-radius:46px;background:linear-gradient(160deg,#211b3c,#0c0a22);border:1px solid rgba(255,255,255,.13);padding:11px;box-shadow:0 50px 100px rgba(0,0,0,.6),inset 0 0 0 2px rgba(255,255,255,.03)">
+          <div style="border-radius:36px;overflow:hidden;background:#3a3a3a;aspect-ratio:9/19.5">
+            <img src="assets/feed-screen.png" alt="Social Fightin feed" style="width:100%;height:100%;object-fit:cover;object-position:top center;display:block">
+          </div>
+        </div>
+      </div>
+      <div class="reveal-r">
+        <div style="display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:1.5px;color:#b9a3ff;background:rgba(120,72,255,.12);border:1px solid rgba(120,72,255,.3);padding:6px 13px;border-radius:30px;margin-bottom:20px"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" style="font-size:15px;display:inline-block;vertical-align:-0.125em"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="6.5" rx="2"/><rect x="4" y="13" width="16" height="7" rx="2"/></g></svg>SOCIAL FEED</div>
+        <h3 style="font-family:'Bebas Neue';font-size:46px;line-height:.96;letter-spacing:.5px;margin-bottom:16px">The Whole Sport, In Your Pocket</h3>
+        <p style="font-size:16.5px;line-height:1.7;color:rgba(255,255,255,.6);margin-bottom:24px">Share training clips, weigh-ins, and callouts. The community feed keeps fighters, fans, and the entire boxing world in one conversation.</p>
+        <div style="display:flex;gap:28px;flex-wrap:wrap">
+          <div><div style="font-family:'Bebas Neue';font-size:38px;line-height:1;color:#fff">2.4M</div><div style="font-size:12.5px;color:rgba(255,255,255,.5);margin-top:3px">Posts shared</div></div>
+          <div><div style="font-family:'Bebas Neue';font-size:38px;line-height:1;color:#fff">38M</div><div style="font-size:12.5px;color:rgba(255,255,255,.5);margin-top:3px">Monthly views</div></div>
+          <div><div style="font-family:'Bebas Neue';font-size:38px;line-height:1;color:#ff6b6a">12K</div><div style="font-size:12.5px;color:rgba(255,255,255,.5);margin-top:3px">Daily callouts</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Feature 3: Messaging (media right) -->
+    <div class="sf-split" style="display:grid;grid-template-columns:1fr 1.08fr;gap:56px;align-items:center;padding:60px 0">
+      <div class="reveal-l">
+        <div style="display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:1.5px;color:#60c7ff;background:rgba(96,199,255,.12);border:1px solid rgba(96,199,255,.3);padding:6px 13px;border-radius:30px;margin-bottom:20px"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" style="font-size:15px;display:inline-block;vertical-align:-0.125em"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 1 1 3.4 6.55L4 20l1.05-3.1A8 8 0 0 1 4 12z"/><path d="M8.5 11h7M8.5 14h4"/></g></svg>DIRECT MESSAGING</div>
+        <h3 style="font-family:'Bebas Neue';font-size:46px;line-height:.96;letter-spacing:.5px;margin-bottom:16px">Deals Done Direct</h3>
+        <p style="font-size:16.5px;line-height:1.7;color:rgba(255,255,255,.6)">Negotiate bouts and talk strategy in secure, verified-only DMs. No agents, no gatekeepers, no noise — just the people who matter.</p>
+      </div>
+      <!-- chat mockup -->
+      <div class="reveal-r" style="position:relative">
+        <div style="position:absolute;inset:-30px;background:radial-gradient(circle at 50% 50%,rgba(96,199,255,.2),transparent 65%);filter:blur(34px);z-index:0"></div>
+        <div class="sf-card" style="position:relative;z-index:1;background:linear-gradient(180deg,rgba(28,22,54,.9),rgba(16,12,36,.9));border:1px solid rgba(255,255,255,.1);border-radius:26px;padding:22px;box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 40px 90px rgba(0,0,0,.55)">
+          <div style="display:flex;align-items:center;gap:11px;padding-bottom:16px;border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:18px">
+            <span style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#7c4dff,#2a1d4f);display:grid;place-items:center;color:#fff;font-weight:700;font-size:14px">EV</span>
+            <div><div style="font-weight:700;font-size:14px;display:flex;align-items:center;gap:6px">Elena Vásquez <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" style="font-size:14px;color:#60c7ff;display:inline-block;vertical-align:-0.125em"><path fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" d="M5 12.5 9.8 17.3 19 7.2"/></svg></div><div style="font-size:11px;color:#37d67a">● Online</div></div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <div style="align-self:flex-start;max-width:78%;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.08);padding:11px 15px;border-radius:16px 16px 16px 4px;font-size:13.5px;line-height:1.45;color:rgba(255,255,255,.85)">Marcus is ready for a step-up fight. Got a date at Vegas Fight Night?</div>
+            <div style="align-self:flex-end;max-width:78%;background:linear-gradient(135deg,#E24B4A,#c2403f);padding:11px 15px;border-radius:16px 16px 4px 16px;font-size:13.5px;line-height:1.45;color:#fff">We do — March 14, co-main. Sending the bout sheet now.</div>
+            <div style="align-self:flex-end;max-width:78%;background:rgba(226,75,74,.12);border:1px solid rgba(226,75,74,.3);padding:11px 15px;border-radius:14px;font-size:13px;color:#fff;display:flex;align-items:center;gap:9px"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" style="font-size:20px;color:#ff6b6a;display:inline-block;vertical-align:-0.125em"><path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" d="M6 2h6.2L19 8.8V20a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm6.5 1.8V8.5H17z"/></svg>Bout_Agreement.pdf</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;margin-top:18px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:30px;padding:11px 16px">
+            <span style="font-size:13px;color:rgba(255,255,255,.4)">Message Elena…</span>
+            <span style="margin-left:auto;display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:#E24B4A;color:#fff"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" style="font-size:16px;display:inline-block;vertical-align:-0.125em"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M6 11l6-6 6 6"/></g></svg></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- compact trio -->
+    <div class="sf-features3" style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:40px">
+      <div class="sf-card reveal-s" style="position:relative;overflow:hidden;background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.016));border:1px solid rgba(255,255,255,.09);border-radius:24px;padding:32px 28px;box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 18px 44px rgba(0,0,0,.35)">
+        <span class="sf-ico" style="display:grid;place-items:center;width:54px;height:54px;border-radius:16px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:#ff6b6a;margin-bottom:22px;transition:.35s"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" style="font-size:26px;display:inline-block;vertical-align:-0.125em"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="16" rx="3"/><path d="M4 9.5h16M8 3v4M16 3v4"/></g></svg></span>
+        <h3 style="font-family:'Bebas Neue';font-size:30px;letter-spacing:.5px;margin-bottom:11px">Event Discovery</h3>
+        <p style="font-size:14.5px;line-height:1.65;color:rgba(255,255,255,.56)">Find fight nights, open sparring, and tryouts near you — tickets, cards, and venue details in one tap.</p>
+      </div>
+      <div class="sf-card reveal-s" style="position:relative;overflow:hidden;background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.016));border:1px solid rgba(255,255,255,.09);border-radius:24px;padding:32px 28px;box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 18px 44px rgba(0,0,0,.35)">
+        <span class="sf-ico" style="display:grid;place-items:center;width:54px;height:54px;border-radius:16px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:#ff6b6a;margin-bottom:22px;transition:.35s"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" style="font-size:26px;display:inline-block;vertical-align:-0.125em"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 5 6v5c0 4.6 3 7.6 7 9 4-1.4 7-4.4 7-9V6z"/><path d="m9 12 2 2 4-4"/></g></svg></span>
+        <h3 style="font-family:'Bebas Neue';font-size:30px;letter-spacing:.5px;margin-bottom:11px">AI Moderation</h3>
+        <p style="font-size:14.5px;line-height:1.65;color:rgba(255,255,255,.56)">Smart moderation filters spam, scams, and abuse so the focus stays on the sport — around the clock.</p>
+      </div>
+      <div class="sf-card reveal-s" style="position:relative;overflow:hidden;background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.016));border:1px solid rgba(255,255,255,.09);border-radius:24px;padding:32px 28px;box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 18px 44px rgba(0,0,0,.35)">
+        <span class="sf-ico" style="display:grid;place-items:center;width:54px;height:54px;border-radius:16px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:#ff6b6a;margin-bottom:22px;transition:.35s"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" style="font-size:26px;display:inline-block;vertical-align:-0.125em"><path fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" d="M5 12.5 9.8 17.3 19 7.2"/></svg></span>
+        <h3 style="font-family:'Bebas Neue';font-size:30px;letter-spacing:.5px;margin-bottom:11px">ID Verification</h3>
+        <p style="font-size:14.5px;line-height:1.65;color:rgba(255,255,255,.56)">Every fighter, manager, and promoter is identity-verified — so connections are exactly who they say.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== VERIFICATION JOURNEY ===== -->
+  <section id="verify" data-chap-sec="verify" style="position:relative;z-index:10;max-width:1180px;margin:0 auto;padding:110px 32px 70px">
+    <div class="sf-verify-grid" style="display:grid;grid-template-columns:.92fr 1.08fr;gap:64px;align-items:center">
+      <div class="reveal-l">
+        <div style="font-family:'Bebas Neue';font-size:18px;letter-spacing:2px;color:#ff6b6a;opacity:.85;margin-bottom:12px">04 — GROW</div>
+        <h2 style="font-family:'Bebas Neue';font-size:58px;line-height:.94;letter-spacing:.5px;margin-bottom:22px">A Verified Network You Can Trust</h2>
+        <p style="font-size:16.5px;line-height:1.72;color:rgba(255,255,255,.6);margin-bottom:30px">The boxing world runs on reputation. Every profile passes a four-step verification gauntlet — so deals, callouts, and connections happen between real, accountable people. No fakes. No catfish. No wasted time.</p>
+        <!-- verified profile preview -->
+        <div class="sf-card" style="display:flex;align-items:center;gap:16px;background:linear-gradient(135deg,rgba(96,199,255,.12),rgba(255,255,255,.02));border:1px solid rgba(96,199,255,.28);border-radius:20px;padding:18px 20px;box-shadow:inset 0 1px 0 rgba(255,255,255,.08);margin-bottom:30px">
+          <span style="width:54px;height:54px;border-radius:50%;background:linear-gradient(135deg,#E24B4A,#7c2625);display:grid;place-items:center;color:#fff"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" style="font-size:26px;display:inline-block;vertical-align:-0.125em"><path fill="currentColor" d="M16 6.5A4.5 4.5 0 0 1 20.5 11v1A2.5 2.5 0 0 1 18 14.5h-1.15A4 4 0 0 1 13 17.85V18H7.2A2.2 2.2 0 0 1 5 15.8v-3.4A3 3 0 0 1 4.2 7.7 4.5 4.5 0 0 1 8.5 6.5z"/><path fill="currentColor" d="M7.2 19h5.8v.3A2.2 2.2 0 0 1 10.8 21.5H9.4A2.2 2.2 0 0 1 7.2 19.3z"/></svg></span>
+          <div style="flex:1">
+            <div style="display:flex;align-items:center;gap:7px;font-weight:700;font-size:15px">Marcus "Steel" Reyes <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" style="font-size:18px;color:#60c7ff;display:inline-block;vertical-align:-0.125em"><path fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" d="M5 12.5 9.8 17.3 19 7.2"/></svg></div>
+            <div style="font-size:12.5px;color:rgba(255,255,255,.5);margin-top:2px">Verified Fighter · Welterweight</div>
+          </div>
+          <span style="font-size:11px;font-weight:700;color:#37d67a;background:rgba(55,214,122,.14);border:1px solid rgba(55,214,122,.3);padding:6px 12px;border-radius:30px">VERIFIED</span>
+        </div>
+        <a href="#download" class="sf-btn-press" style="text-decoration:none;display:inline-flex;align-items:center;gap:10px;background:linear-gradient(180deg,#ef5d5c,#d33f3e);color:#fff;font-weight:600;font-size:16px;padding:16px 34px;border-radius:60px;box-shadow:inset 0 1px 0 rgba(255,255,255,.3),0 14px 40px rgba(226,75,74,.42)" style-hover="box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 18px 50px rgba(226,75,74,.6)">Get Verified <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" style="font-size:18px;display:inline-block;vertical-align:-0.125em"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></g></svg></a>
+      </div>
+      <!-- timeline -->
+      <div class="sf-tline" style="position:relative">
+        <div style="position:absolute;left:25px;top:34px;bottom:34px;width:2px;background:linear-gradient(180deg,rgba(226,75,74,.75),rgba(96,199,255,.5))"></div>
+        <div class="reveal-s" style="position:relative;display:flex;gap:22px;padding:13px 0">
+          <span style="position:relative;z-index:2;flex:none;display:grid;place-items:center;width:52px;height:52px;border-radius:50%;background:#120e2c;border:1px solid rgba(226,75,74,.4);box-shadow:0 0 0 6px rgba(226,75,74,.06);color:#ff6b6a"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" style="font-size:24px;display:inline-block;vertical-align:-0.125em"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="8.5" cy="11" r="2.2"/><path d="M5.6 16.2a3 3 0 0 1 5.8 0"/><path d="M14.5 10h3.5M14.5 13.5h3.5"/></g></svg></span>
+          <div class="sf-card" style="flex:1;background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.016));border:1px solid rgba(255,255,255,.09);border-radius:18px;padding:18px 22px;box-shadow:inset 0 1px 0 rgba(255,255,255,.07)">
+            <div style="display:flex;align-items:center;justify-content:space-between"><h4 style="font-size:16.5px;font-weight:700">Identity Verification</h4><span style="font-family:'Bebas Neue';font-size:22px;color:rgba(255,255,255,.25)">01</span></div>
+            <p style="font-size:13.5px;line-height:1.6;color:rgba(255,255,255,.55);margin-top:5px">Upload a government ID and a quick liveness selfie to begin.</p>
+          </div>
+        </div>
+        <div class="reveal-s" style="position:relative;display:flex;gap:22px;padding:13px 0">
+          <span style="position:relative;z-index:2;flex:none;display:grid;place-items:center;width:52px;height:52px;border-radius:50%;background:#120e2c;border:1px solid rgba(226,75,74,.4);box-shadow:0 0 0 6px rgba(226,75,74,.06);color:#ff6b6a"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" style="font-size:24px;display:inline-block;vertical-align:-0.125em"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="14" r="5"/><path d="m12 12.2.8 1.6 1.7.25-1.25 1.2.3 1.75L12 18.2l-1.55.8.3-1.75L9.5 16.05l1.7-.25z"/><path d="M8.6 9 7 4h10L15.4 9"/></g></svg></span>
+          <div class="sf-card" style="flex:1;background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.016));border:1px solid rgba(255,255,255,.09);border-radius:18px;padding:18px 22px;box-shadow:inset 0 1px 0 rgba(255,255,255,.07)">
+            <div style="display:flex;align-items:center;justify-content:space-between"><h4 style="font-size:16.5px;font-weight:700">Professional Validation</h4><span style="font-family:'Bebas Neue';font-size:22px;color:rgba(255,255,255,.25)">02</span></div>
+            <p style="font-size:13.5px;line-height:1.6;color:rgba(255,255,255,.55);margin-top:5px">Link your record, license, or promoter credentials to your profile.</p>
+          </div>
+        </div>
+        <div class="reveal-s" style="position:relative;display:flex;gap:22px;padding:13px 0">
+          <span style="position:relative;z-index:2;flex:none;display:grid;place-items:center;width:52px;height:52px;border-radius:50%;background:#120e2c;border:1px solid rgba(226,75,74,.4);box-shadow:0 0 0 6px rgba(226,75,74,.06);color:#ff6b6a"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" style="font-size:24px;display:inline-block;vertical-align:-0.125em"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="6" width="12" height="12" rx="3"/><path d="M12.4 9.3 10.5 13h3l-1.9 3.7"/><path d="M9 3v2M15 3v2M9 19v2M15 19v2M3 9h2M3 15h2M19 9h2M19 15h2"/></g></svg></span>
+          <div class="sf-card" style="flex:1;background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.016));border:1px solid rgba(255,255,255,.09);border-radius:18px;padding:18px 22px;box-shadow:inset 0 1px 0 rgba(255,255,255,.07)">
+            <div style="display:flex;align-items:center;justify-content:space-between"><h4 style="font-size:16.5px;font-weight:700">AI Review</h4><span style="font-family:'Bebas Neue';font-size:22px;color:rgba(255,255,255,.25)">03</span></div>
+            <p style="font-size:13.5px;line-height:1.6;color:rgba(255,255,255,.55);margin-top:5px">Our system cross-checks records against trusted databases in minutes.</p>
+          </div>
+        </div>
+        <div class="reveal-s" style="position:relative;display:flex;gap:22px;padding:13px 0">
+          <span style="position:relative;z-index:2;flex:none;display:grid;place-items:center;width:52px;height:52px;border-radius:50%;background:linear-gradient(180deg,#60c7ff,#2f8fc4);border:1px solid rgba(255,255,255,.25);box-shadow:0 0 0 6px rgba(96,199,255,.12),0 10px 24px rgba(96,199,255,.4);color:#06283a"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" style="font-size:26px;display:inline-block;vertical-align:-0.125em"><path fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" d="M5 12.5 9.8 17.3 19 7.2"/></svg></span>
+          <div class="sf-card" style="flex:1;background:linear-gradient(135deg,rgba(96,199,255,.14),rgba(96,199,255,.04));border:1px solid rgba(96,199,255,.32);border-radius:18px;padding:18px 22px;box-shadow:inset 0 1px 0 rgba(255,255,255,.1)">
+            <div style="display:flex;align-items:center;justify-content:space-between"><h4 style="font-size:16.5px;font-weight:700;display:flex;align-items:center;gap:7px">Verified Status <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" style="font-size:17px;color:#60c7ff;display:inline-block;vertical-align:-0.125em"><path fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" d="M5 12.5 9.8 17.3 19 7.2"/></svg></h4><span style="font-family:'Bebas Neue';font-size:22px;color:rgba(96,199,255,.5)">04</span></div>
+            <p style="font-size:13.5px;line-height:1.6;color:rgba(255,255,255,.62);margin-top:5px">Earn your blue check and join the verified network of pros.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FINAL CTA — THE MAIN EVENT ===== -->
+  <section id="download" data-chap-sec="download" style="position:relative;z-index:10;padding:60px 32px 0;overflow:hidden">
+    <div class="reveal-s" style="position:relative;max-width:1180px;margin:0 auto;border-radius:40px;overflow:hidden;background:radial-gradient(120% 130% at 50% 0%,#1a1038 0%,#0a0620 55%,#060414 100%);border:1px solid rgba(255,255,255,.09);box-shadow:0 50px 120px rgba(0,0,0,.6)">
+      <!-- spotlight -->
+      <div style="position:absolute;top:-160px;left:50%;transform:translateX(-50%);width:760px;height:760px;background:radial-gradient(circle,rgba(226,75,74,.4),transparent 60%);filter:blur(40px);pointer-events:none"></div>
+      <div style="position:absolute;top:-120px;left:18%;width:300px;height:680px;background:linear-gradient(180deg,rgba(255,255,255,.1),transparent 60%);filter:blur(26px);transform:rotate(-16deg);mix-blend-mode:screen;pointer-events:none"></div>
+      <div style="position:absolute;top:-120px;right:18%;width:300px;height:680px;background:linear-gradient(180deg,rgba(226,75,74,.22),transparent 60%);filter:blur(26px);transform:rotate(16deg);mix-blend-mode:screen;pointer-events:none"></div>
+      <!-- crowd base -->
+      <div style="position:absolute;left:0;right:0;bottom:0;height:160px;z-index:1;pointer-events:none;background:radial-gradient(18px 22px at 26px 100%,#070514 71%,transparent 73%) 0 0/54px 56px repeat-x,linear-gradient(180deg,transparent,#060414 85%);opacity:.9"></div>
+
+      <div style="position:relative;z-index:3;text-align:center;padding:84px 32px 70px">
+        <div style="display:inline-flex;align-items:center;gap:8px;font-family:'Bebas Neue';font-size:18px;letter-spacing:3px;color:#ff6b6a;margin-bottom:18px">05 — WIN</div>
+        <div style="display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:2px;color:rgba(255,255,255,.85);background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);padding:7px 16px;border-radius:30px;margin-bottom:26px"><span style="width:7px;height:7px;border-radius:50%;background:#37d67a;animation:sfDot 2s ease-in-out infinite"></span>JOIN 67,000+ MEMBERS</div>
+        <h2 class="sf-h1" style="font-family:'Bebas Neue';font-size:92px;line-height:.88;letter-spacing:.5px;margin-bottom:20px">Step Into<br>The Ring</h2>
+        <p style="font-size:19px;line-height:1.6;color:rgba(255,255,255,.7);max-width:500px;margin:0 auto 38px">Download Social Fightin and join the only network where the entire boxing world connects.</p>
+        <div class="sf-store-wrap" style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:18px">
+          <a href="#" class="sf-store" style="text-decoration:none;display:flex;align-items:center;gap:13px;background:#fff;color:#07051A;padding:14px 28px;border-radius:16px;box-shadow:0 16px 40px rgba(0,0,0,.5)">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" style="font-size:30px;display:inline-block;vertical-align:-0.125em"><path fill="currentColor" d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47c-1.34.03-1.77-.79-3.29-.79c-1.53 0-2 .77-3.27.82c-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51c1.28-.02 2.5.87 3.29.87c.78 0 2.26-1.07 3.81-.91c.65.03 2.47.26 3.64 1.98c-.09.06-2.17 1.28-2.15 3.81c.03 3.02 2.65 4.03 2.68 4.04c-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5c.13 1.17-.34 2.35-1.04 3.19c-.69.85-1.83 1.51-2.95 1.42c-.15-1.15.41-2.35 1.05-3.11"/></svg>
+            <span style="text-align:left"><span style="display:block;font-size:11px;color:rgba(7,5,26,.6)">Download on the</span><span style="display:block;font-family:'Bebas Neue';font-size:23px;letter-spacing:.5px">App Store</span></span>
+          </a>
+          <a href="#" class="sf-store" style="text-decoration:none;display:flex;align-items:center;gap:13px;background:rgba(255,255,255,.06);color:#fff;padding:14px 28px;border-radius:16px;border:1px solid rgba(255,255,255,.18);box-shadow:0 16px 40px rgba(0,0,0,.4)">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" style="font-size:26px;color:#ff6b6a;display:inline-block;vertical-align:-0.125em"><path fill="currentColor" d="M3 20.5v-17c0-.59.34-1.11.84-1.35L13.69 12l-9.85 9.85c-.5-.25-.84-.76-.84-1.35m13.81-5.38L6.05 21.34l8.49-8.49zm3.35-4.31c.34.27.59.69.59 1.19s-.22.9-.57 1.18l-2.29 1.32l-2.5-2.5l2.5-2.5zM6.05 2.66l10.76 6.22l-2.27 2.27z"/></svg>
+            <span style="text-align:left"><span style="display:block;font-size:11px;color:rgba(255,255,255,.6)">GET IT ON</span><span style="display:block;font-family:'Bebas Neue';font-size:23px;letter-spacing:.5px">Google Play</span></span>
+          </a>
+        </div>
+        <div style="display:inline-flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,.5)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" style="color:#ffa200;display:inline-block;vertical-align:-0.125em"><path fill="currentColor" d="M9.153 5.408C10.42 3.136 11.053 2 12 2s1.58 1.136 2.847 3.408l.328.588c.36.646.54.969.82 1.182s.63.292 1.33.45l.636.144c2.46.557 3.689.835 3.982 1.776c.292.94-.546 1.921-2.223 3.882l-.434.507c-.476.557-.715.836-.822 1.18c-.107.345-.071.717.001 1.46l.066.677c.253 2.617.38 3.925-.386 4.506s-1.918.051-4.22-1.009l-.597-.274c-.654-.302-.981-.452-1.328-.452s-.674.15-1.328.452l-.596.274c-2.303 1.06-3.455 1.59-4.22 1.01c-.767-.582-.64-1.89-.387-4.507l.066-.676c.072-.744.108-1.116 0-1.46c-.106-.345-.345-.624-.821-1.18l-.434-.508c-1.677-1.96-2.515-2.941-2.223-3.882S3.58 8.328 6.04 7.772l.636-.144c.699-.158 1.048-.237 1.329-.45s.46-.536.82-1.182z"/></svg><span style="color:#fff;font-weight:700">4.9</span> on the App Store · Free to join</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer style="position:relative;z-index:10;border-top:1px solid rgba(255,255,255,.08);margin-top:90px">
+    <div class="sf-foot" style="max-width:1180px;margin:0 auto;padding:46px 32px;display:flex;align-items:center;justify-content:space-between">
+      <a href="#top" style="display:flex;align-items:center;gap:11px;text-decoration:none">
+        <img src="assets/sf-logo.png" alt="Social Fightin" style="width:36px;height:36px;border-radius:10px;display:block">
+        <span style="font-family:'Bebas Neue';font-size:22px;letter-spacing:1.5px;color:#fff">SOCIAL FIGHTIN</span>
+      </a>
+      <div style="display:flex;gap:32px;flex-wrap:wrap;justify-content:center">
+        <a href="#roles" class="sf-link" style="color:rgba(255,255,255,.55);text-decoration:none;font-size:14px" style-hover="color:#fff">Roles</a>
+        <a href="#features" class="sf-link" style="color:rgba(255,255,255,.55);text-decoration:none;font-size:14px" style-hover="color:#fff">Features</a>
+        <a href="#verify" class="sf-link" style="color:rgba(255,255,255,.55);text-decoration:none;font-size:14px" style-hover="color:#fff">Verification</a>
+        <a href="#download" class="sf-link" style="color:rgba(255,255,255,.55);text-decoration:none;font-size:14px" style-hover="color:#fff">Download</a>
+      </div>
+      <div style="font-size:13px;color:rgba(255,255,255,.4)">© 2026 Social Fightin. All rights reserved.</div>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:900},&quot;showRail&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;},&quot;showTicker&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;},&quot;showAtmosphere&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      showRail: this.props.showRail ?? true,
+      showTicker: this.props.showTicker ?? true,
+      showAtmosphere: this.props.showAtmosphere ?? true,
+    };
+  }
+  componentDidMount() {
+    const root = document.getElementById('sf-root') || document;
+
+    // staggered scroll reveal
+    const items = [...root.querySelectorAll('.reveal, .reveal-s, .reveal-l, .reveal-r')];
+    items.forEach((el) => {
+      const sibs = [...el.parentElement.children].filter(c =>
+        c.classList && (c.classList.contains('reveal') || c.classList.contains('reveal-s') || c.classList.contains('reveal-l') || c.classList.contains('reveal-r')));
+      const idx = sibs.indexOf(el);
+      el.style.transitionDelay = Math.min(idx, 6) * 85 + 'ms';
+    });
+    this._io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) { e.target.classList.add('is-visible'); this._io.unobserve(e.target); }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -7% 0px' });
+    items.forEach((el) => this._io.observe(el));
+
+    // chapter-rail active state
+    const sections = [...root.querySelectorAll('[data-chap-sec]')];
+    const railLinks = [...root.querySelectorAll('.sf-chap')];
+    this._cio = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          const key = e.target.getAttribute('data-chap-sec');
+          railLinks.forEach(l => l.classList.toggle('active', l.getAttribute('data-chap') === key));
+        }
+      });
+    }, { threshold: 0.4, rootMargin: '-30% 0px -40% 0px' });
+    sections.forEach((s) => this._cio.observe(s));
+
+    // scroll parallax
+    this._onScroll = () => {
+      const y = window.scrollY;
+      root.querySelectorAll('[data-parallax]').forEach((el) => {
+        const s = parseFloat(el.getAttribute('data-parallax')) || 0;
+        el.style.transform = 'translate3d(-50%,' + (y * s) + 'px,0)';
+      });
+    };
+    window.addEventListener('scroll', this._onScroll, { passive: true });
+
+    // pointer parallax
+    this._onMove = (e) => {
+      const cx = (e.clientX / window.innerWidth - 0.5);
+      const cy = (e.clientY / window.innerHeight - 0.5);
+      root.querySelectorAll('[data-tilt]').forEach((el) => {
+        const s = parseFloat(el.getAttribute('data-tilt')) || 0;
+        el.style.transform = 'translate3d(' + (cx * s) + 'px,' + (cy * s) + 'px,0)';
+      });
+    };
+    window.addEventListener('mousemove', this._onMove, { passive: true });
+  }
+  componentWillUnmount() {
+    if (this._io) this._io.disconnect();
+    if (this._cio) this._cio.disconnect();
+    window.removeEventListener('scroll', this._onScroll);
+    window.removeEventListener('mousemove', this._onMove);
+  }
+}
+</script>
+</body>
+</html>
