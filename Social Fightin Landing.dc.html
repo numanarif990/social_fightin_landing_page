@@ -45,14 +45,8 @@
   .sf-store:hover{transform:translateY(-3px);border-color:rgba(255,255,255,.3)}
   .sf-btn-press{transition:transform .15s,box-shadow .25s}
   .sf-btn-press:active{transform:scale(.97)}
-  .sf-chap{cursor:pointer;transition:color .3s}
-  .sf-chap .sf-chap-dot{transition:all .35s}
-  .sf-chap.active{color:#fff}
-  .sf-chap.active .sf-chap-dot{background:#E24B4A;box-shadow:0 0 0 4px rgba(226,75,74,.18);transform:scale(1.15)}
-  .sf-chap.active .sf-chap-line{background:#E24B4A!important}
   .sf-marquee-track{display:flex;width:max-content;animation:sfMarquee 38s linear infinite}
   .sf-mq-pause:hover .sf-marquee-track{animation-play-state:paused}
-  @media(max-width:1200px){.sf-rail{display:none!important}}
   @media(max-width:980px){
     .sf-navlinks{display:none!important}
     .sf-hero-grid{grid-template-columns:1fr!important;text-align:center}
@@ -88,32 +82,6 @@
 <div id="sf-root" style="font-family:'Inter',sans-serif;background:radial-gradient(1300px 760px at 50% -6%,#171034 0%,#0b0724 44%,#07051A 100%);color:#fff;min-height:100vh;overflow-x:hidden;position:relative">
 
   <div style="position:fixed;inset:0;pointer-events:none;z-index:1;background:radial-gradient(125% 85% at 50% 0%,transparent 52%,rgba(0,0,0,.5) 100%)"></div>
-
-  <!-- ===== SCROLL-STORY CHAPTER RAIL ===== -->
-  <sc-if value="{{ showRail }}" hint-placeholder-val="{{ true }}">
-  <div class="sf-rail" style="position:fixed;left:30px;top:50%;transform:translateY(-50%);z-index:45;display:flex;flex-direction:column;gap:2px">
-    <a href="#top" data-chap="hero" class="sf-chap active" style="display:flex;align-items:center;gap:13px;text-decoration:none;color:rgba(255,255,255,.4);font-size:12px;font-weight:700;letter-spacing:2px;padding:7px 0">
-      <span style="display:flex;flex-direction:column;align-items:center"><span class="sf-chap-dot" style="width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.3)"></span><span class="sf-chap-line" style="width:1.5px;height:26px;background:rgba(255,255,255,.12);margin-top:2px"></span></span>
-      <span style="display:flex;gap:8px"><span style="opacity:.55">01</span>FIGHT</span>
-    </a>
-    <a href="#roles" data-chap="roles" class="sf-chap" style="display:flex;align-items:center;gap:13px;text-decoration:none;color:rgba(255,255,255,.4);font-size:12px;font-weight:700;letter-spacing:2px;padding:7px 0">
-      <span style="display:flex;flex-direction:column;align-items:center"><span class="sf-chap-dot" style="width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.3)"></span><span class="sf-chap-line" style="width:1.5px;height:26px;background:rgba(255,255,255,.12);margin-top:2px"></span></span>
-      <span style="display:flex;gap:8px"><span style="opacity:.55">02</span>CONNECT</span>
-    </a>
-    <a href="#features" data-chap="features" class="sf-chap" style="display:flex;align-items:center;gap:13px;text-decoration:none;color:rgba(255,255,255,.4);font-size:12px;font-weight:700;letter-spacing:2px;padding:7px 0">
-      <span style="display:flex;flex-direction:column;align-items:center"><span class="sf-chap-dot" style="width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.3)"></span><span class="sf-chap-line" style="width:1.5px;height:26px;background:rgba(255,255,255,.12);margin-top:2px"></span></span>
-      <span style="display:flex;gap:8px"><span style="opacity:.55">03</span>COMPETE</span>
-    </a>
-    <a href="#verify" data-chap="verify" class="sf-chap" style="display:flex;align-items:center;gap:13px;text-decoration:none;color:rgba(255,255,255,.4);font-size:12px;font-weight:700;letter-spacing:2px;padding:7px 0">
-      <span style="display:flex;flex-direction:column;align-items:center"><span class="sf-chap-dot" style="width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.3)"></span><span class="sf-chap-line" style="width:1.5px;height:26px;background:rgba(255,255,255,.12);margin-top:2px"></span></span>
-      <span style="display:flex;gap:8px"><span style="opacity:.55">04</span>GROW</span>
-    </a>
-    <a href="#download" data-chap="download" class="sf-chap" style="display:flex;align-items:center;gap:13px;text-decoration:none;color:rgba(255,255,255,.4);font-size:12px;font-weight:700;letter-spacing:2px;padding:7px 0">
-      <span style="display:flex;flex-direction:column;align-items:center"><span class="sf-chap-dot" style="width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.3)"></span></span>
-      <span style="display:flex;gap:8px"><span style="opacity:.55">05</span>WIN</span>
-    </a>
-  </div>
-  </sc-if>
 
   <!-- ===== FLOATING GLASS NAV ===== -->
   <div style="position:sticky;top:18px;z-index:50;padding:0 20px">
@@ -651,19 +619,6 @@ class Component extends DCLogic {
     }, { threshold: 0.12, rootMargin: '0px 0px -7% 0px' });
     items.forEach((el) => this._io.observe(el));
 
-    // chapter-rail active state
-    const sections = [...root.querySelectorAll('[data-chap-sec]')];
-    const railLinks = [...root.querySelectorAll('.sf-chap')];
-    this._cio = new IntersectionObserver((entries) => {
-      entries.forEach((e) => {
-        if (e.isIntersecting) {
-          const key = e.target.getAttribute('data-chap-sec');
-          railLinks.forEach(l => l.classList.toggle('active', l.getAttribute('data-chap') === key));
-        }
-      });
-    }, { threshold: 0.4, rootMargin: '-30% 0px -40% 0px' });
-    sections.forEach((s) => this._cio.observe(s));
-
     // scroll parallax
     this._onScroll = () => {
       const y = window.scrollY;
@@ -687,7 +642,6 @@ class Component extends DCLogic {
   }
   componentWillUnmount() {
     if (this._io) this._io.disconnect();
-    if (this._cio) this._cio.disconnect();
     window.removeEventListener('scroll', this._onScroll);
     window.removeEventListener('mousemove', this._onMove);
   }
